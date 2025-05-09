@@ -9,7 +9,22 @@ const app = express();
 
 // Middleware
 // TODO: Configurer les origines CORS précises après le déploiement du frontend
-app.use(cors({ origin: ['http://localhost:5173'] })); 
+ 
+//app.use(cors({ origin: ['http://localhost:5173'] })); 
+
+const allowedOrigins = env.CORS_ORIGINS.split(',').map(s => s.trim());
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Autorise les requêtes depuis Postman ou tests sans en-tête Origin
+    if (!origin) return callback(null, true);
+    return allowedOrigins.includes(origin)
+      ? callback(null, true)
+      : callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,          // si tu utilises des cookies
+}));
+
 app.use(express.json());
 app.use(
   rateLimit({

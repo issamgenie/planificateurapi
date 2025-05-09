@@ -7,6 +7,7 @@ const env = {
   WEATHERAPI_KEY: process.env.WEATHERAPI_KEY, // Sera fourni par l'utilisateur plus tard
   OPENFOODFACTS_URL: process.env.OPENFOODFACTS_URL || "https://world.openfoodfacts.org/api/v0",
   PORT: process.env.PORT || 8080,
+  CORS_ORIGINS: process.env.CORS_ORIGINS,
 };
 
 // Vérification simple des variables requises (uniquement celles qui sont critiques au démarrage sans valeur par défaut)
